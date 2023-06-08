@@ -1,6 +1,6 @@
 import { dirname } from "pathe";
 import { defineNuxtModule, logger } from "@nuxt/kit";
-import { generate, loadCodegenConfig } from "@graphql-codegen/cli";
+import { generate, loadCodegenConfig, loadContext } from "@graphql-codegen/cli";
 
 interface ModuleOptions {
   devOnly: boolean;
@@ -21,17 +21,18 @@ export default defineNuxtModule<ModuleOptions>({
     if (devOnly && !nuxt.options.dev) {
       return;
     }
-    // Load GraphQL Code Generator configuration from rootDir
-    const { config, filepath } = await loadCodegenConfig({
-      configFilePath: nuxt.options.rootDir,
-    });
-    const cwd = dirname(filepath);
+
+    const context = await loadContext();
 
     // Execute GraphQL Code Generator
     async function codegen() {
       try {
         const start = Date.now();
-        await generate({ ...config, cwd }, true);
+        const config = context.getConfig();
+        const cwd = process.cwd();
+
+        await generate({ ...config, watch: false }, true);
+
         const time = Date.now() - start;
         logger.success(`GraphQL Code Generator generated code in ${time}ms`);
       } catch (e: unknown) {

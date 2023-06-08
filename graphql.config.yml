@@ -1,0 +1,8 @@
+schema: ./playground/schema.graphql
+extensions:
+  codegen:
+    generates:
+      ./generated/schema.ts:
+        plugins:
+          - typescript
+          - typescript-operations
