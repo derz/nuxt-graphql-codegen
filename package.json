@@ -44,7 +44,7 @@
     "nuxt": "^3.5.3"
   },
   "peerDependencies": {
-    "@graphql-codegen/cli": "^2",
+    "@graphql-codegen/cli": "^4",
     "graphql": "^15 || ^16"
   },
   "eslintConfig": {
