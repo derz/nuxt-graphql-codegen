@@ -1,0 +1,5 @@
+{
+  "name": "nuxt-graphql-codegen",
+  "configKey": "graphqlCodegen",
+  "version": "0.3.2"
+}
